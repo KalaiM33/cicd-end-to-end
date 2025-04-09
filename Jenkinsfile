@@ -52,7 +52,8 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'kalaim33', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+       
+                    git branch: 'main', credentialsId: 'kalaim33', url: 'https://github.com/KalaiM33/cicd-demo-manifests-repo'
                         sh '''
                         cat deploy.yaml
                         sed -i "s/10/${BUILD_NUMBER}/g" deploy.yaml
@@ -62,7 +63,6 @@ pipeline {
                         git remote -v
                         git push https://github.com/KalaiM33/cicd-demo-manifests-repo.git HEAD:main
                         '''                        
-                    }
                 }
             }
         }
