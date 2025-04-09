@@ -24,7 +24,13 @@ pipeline {
                 }
             }
         }
-
+       stage('Login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_USER', password: 'DOCKER_PASSWORD')])) {
+                    sh "docker login -u kalaim33 -p Praptika@2020"
+                }
+            }
+        }
         stage('Push the artifacts'){
            steps{
                 script{
