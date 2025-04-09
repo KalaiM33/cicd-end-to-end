@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: todo
-        image: meippa/todo-app:v1
+        image: kalaim33/todo-app:v1
         ports:
         - containerPort: 8000
