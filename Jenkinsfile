@@ -26,12 +26,11 @@ pipeline {
         }
        stage('Login') {
             steps {
-            {
                 script{
                     sh "docker login -u kalaim33 -p Praptika@2020"
                 }
             }
-            }
+    
         }
         stage('Push the artifacts'){
            steps{
