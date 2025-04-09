@@ -56,7 +56,6 @@ pipeline {
                         sh '''
                         git config --global user.name "${GIT_USERNAME}"
                         git config --global user.password "${GIT_PASSWORD}"
-                        git push --set-upstream origin qa 
                         cat deploy.yaml
                         sed -i "s/10/${BUILD_NUMBER}/g" deploy.yaml
                         cat deploy.yaml
