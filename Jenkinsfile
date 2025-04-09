@@ -10,7 +10,7 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git branch: 'main', url: 'https://github.com/KalaiM33/cicd-end-to-end'
+               git branch: 'main', credentialsId: 'kalaim33', url: 'https://github.com/KalaiM33/cicd-end-to-end'
            }
         }
 
@@ -19,7 +19,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    docker build -t abhishekf5/cicd-e2e:${BUILD_NUMBER} .
+                    docker build -t kalaim33/cicd-e2e:${BUILD_NUMBER} .
                     '''
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
-                    docker push abhishekf5/cicd-e2e:${BUILD_NUMBER}
+                    docker push kalaim33/cicd-e2e:${BUILD_NUMBER}
                     '''
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'kalaim33', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
                         cat deploy.yaml
                         sed -i '' "s/32/${BUILD_NUMBER}/g" deploy.yaml
